@@ -15,12 +15,16 @@ export class MatchPageComponent implements OnInit {
   selectedMatchId: number;
   formattedTime: string;
 
+  inPlay : matchStatus.inPlay
+  paused : matchStatus.paused
+
   constructor(private competitionService: CompetitionService, private route: ActivatedRoute, private datepipe: DatePipe) { }
 
   ngOnInit() {
     this.getSelectedMatchId();
     this.competitionService.getMatch(this.selectedMatchId).subscribe(match => {
       this.selectedMatch = match.match;
+      console.log(this.selectedMatch)
       this.formattedTime = this.datepipe.transform(this.selectedMatch.utcDate, 'yyyy.MM.dd HH:mm')
     });
   }

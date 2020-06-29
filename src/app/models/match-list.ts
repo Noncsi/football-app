@@ -1,3 +1,0 @@
-class MatchList {
-    match: Match
-}

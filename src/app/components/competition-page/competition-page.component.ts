@@ -35,7 +35,6 @@ export class CompetitionPageComponent implements OnInit {
   getSelectedCompetitionId(comps: Competition[]) {
     this.route.paramMap.subscribe(params => {
       this.selectedCompetition = comps.filter(c => c.name == params.get("name"))[0];
-      this.competitionService.selectedCompetitionSubject.next(this.selectedCompetition);
     })
   }
 }
