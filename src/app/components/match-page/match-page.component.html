@@ -1,0 +1,30 @@
+<div *ngIf="selectedMatch" class="match-details-container">
+
+    <div class="head">
+        <h2>{{selectedMatch.match.homeTeam.name}} VS
+            {{selectedMatch.match.awayTeam.name}}</h2>
+        <div *ngIf="selectedMatch.match.status == 'IN_PLAY' ||
+            selectedMatch.match.status == 'PAUSED'">
+            <h2>{{selectedMatch.match.score.fullTime.homeTeam}}
+                - {{selectedMatch.match.score.fullTime.awayTeam}}</h2>
+        </div>
+    </div>
+
+
+
+    <div class="center">
+        <div>
+            <h3>competition:</h3> <h2>
+                {{selectedMatch.match.competition.name}}</h2>
+            <h3>date:</h3> <h2>{{formattedTime}}</h2>
+            <h3>status:</h3> <h2>{{selectedMatch.match.status}}</h2>
+        </div>
+        <div *ngIf="selectedMatch.match.status == 'IN_PLAY' ||
+            selectedMatch.match.status == 'PAUSED'">
+            <h3>match clock:</h3> <h2></h2>
+            <h3>first or second half:</h3> <h2></h2>
+
+        </div>
+    </div>
+
+</div>

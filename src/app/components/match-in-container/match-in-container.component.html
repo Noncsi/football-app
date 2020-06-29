@@ -1,0 +1,14 @@
+<div class="slot">
+    <h5>{{formattedTime}}</h5>
+    <div class="teams">
+        <a [routerLink]="[ match.id ]">
+            <div class="team">
+                {{match.homeTeam.name}}
+            </div>
+            vs.
+            <div class="team">
+                {{match.awayTeam.name}}
+            </div>
+        </a>
+    </div>
+</div>

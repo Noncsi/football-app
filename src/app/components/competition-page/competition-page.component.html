@@ -1,0 +1,5 @@
+<h3>{{selectedCompetition?.name}} Competition</h3>
+<div class="competition-page-body">
+    <app-match-container [title]="'ONGOING EVENTS'" [matchList]="liveMatches"></app-match-container>
+    <app-match-container [title]="'UPCOMING EVENTS'" [matchList]="scheduledMatches"></app-match-container>
+</div>
