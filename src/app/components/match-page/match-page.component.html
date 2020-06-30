@@ -1,29 +1,29 @@
 <div *ngIf="selectedMatch" class="match-details-container">
 
-    <div *ngIf="selectedMatch.status == inPlay || selectedMatch.status ==
-        paused">
+    <div *ngIf="selectedMatch.status === MatchStatus.inPlay || selectedMatch.status ===
+        MatchStatus.paused">
         <div class="head">
-            <h2 class="live">{{selectedMatch.status}}</h2>
-            <h2>{{formattedTime}}</h2>
+            <h2 class="live">LIVE</h2>
+            <h3>{{formattedTime}} - {{selectedMatch.venue}}</h3>
 
         </div>
 
         <h1 class="teams">{{selectedMatch.homeTeam.name}} - 
             {{selectedMatch.awayTeam.name}}</h1>
-        <h3>{{selectedMatch.score.fullTime.homeTeam}}
+        <h3 class="score">{{selectedMatch.score.fullTime.homeTeam}}
             - {{selectedMatch.score.fullTime.awayTeam}}</h3>
 
-        <div class="center">
+        <!-- <div class="center">
             <div>
                 <h3>match clock:</h3> <h3></h3>
                 <h3>first or second half:</h3> <h3></h3>
             </div>
-        </div>
+        </div> -->
     </div>
 
-    <div *ngIf="selectedMatch.status == scheduled">
+    <div *ngIf="selectedMatch.status === MatchStatus.scheduled">
         <div class="head">
-            <h2 class="scheduled">{{selectedMatch.status}}</h2>
+            <h2 class="scheduled">SCHEDULED</h2>
             <h3>{{formattedTime}} - {{selectedMatch.venue}}</h3>
         </div>
         <h3 class="counterTitle">Starts in</h3>

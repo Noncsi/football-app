@@ -1,40 +1,16 @@
-class MatchList {
-    match: Match
-}
+import { HomeTeam } from './homeTeam';
+import { AwayTeam } from './awayTeam';
+import { Competition } from './competition';
+import { MatchTimePart } from './matchTimePart';
+import { MatchStatus } from './MatchStatus';
 
-class Match {
+export class Match {
     id: number;
-    status: matchStatus;
+    status: MatchStatus;
     utcDate: string;
-    score: WhichTime;
+    score: MatchTimePart;
     homeTeam: HomeTeam;
     awayTeam: AwayTeam;
     competition: Competition;
     venue: string;
-}
-
-const enum matchStatus {
-    live = 'LIVE',
-    scheduled = 'SCHEDULED',
-    inPlay = 'IN_PLAY',
-    paused = 'PAUSED'
-}
-
-class WhichTime {
-    fullTime: TeamScore
-}
-
-class TeamScore {
-    homeTeam: number;
-    awayTeam: number;
-}
-
-class HomeTeam {
-    name: string;
-    captain: string
-}
-
-class AwayTeam {
-    name: string;
-    captain: string;
 }

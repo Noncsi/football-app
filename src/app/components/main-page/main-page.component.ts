@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
 import { CompetitionService } from 'src/app/services/competition.service';
-import { Router } from '@angular/router';
+import { Competition } from 'src/app/models/competition';
 
 @Component({
   selector: 'app-main-page',
@@ -11,7 +12,7 @@ export class MainPageComponent implements OnInit {
 
   competitions: Competition[];
 
-  constructor(private competitionService: CompetitionService, private router: Router) { }
+  constructor(private competitionService: CompetitionService) { }
 
   ngOnInit() {
     this.competitionService.competitionSubject.subscribe(comps => {

@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { CompetitionService } from './services/competition.service';
-import { ApiInterceptor } from './api.interceptor';
+import { ApiInterceptor } from './interceptor/api.interceptor';
 import { CompetitionPageComponent } from './components/competition-page/competition-page.component';
 import { MatchPageComponent } from './components/match-page/match-page.component';
 import { MatchContainerComponent } from './components/match-container/match-container.component';

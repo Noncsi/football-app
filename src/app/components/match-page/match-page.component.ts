@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DatePipe, Time } from '@angular/common';
+import { DatePipe } from '@angular/common';
 
 import { CompetitionService } from 'src/app/services/competition.service';
-import { prepareSyntheticListenerFunctionName } from '@angular/compiler/src/render3/util';
+import { Match } from 'src/app/models/match';
+import { MatchStatus } from 'src/app/models/MatchStatus';
 
 @Component({
   selector: 'app-match-page',
@@ -15,21 +16,18 @@ export class MatchPageComponent implements OnInit, OnDestroy {
   selectedMatch: Match;
   selectedMatchId: number;
   formattedTime: string;
+  MatchStatus = MatchStatus;
+  timer: number;
 
-  get inPlay() { return matchStatus.inPlay; }
-  get paused() { return matchStatus.paused; }
-  get scheduled() { return matchStatus.scheduled; }
-
-  timer;
-
-  constructor(private competitionService: CompetitionService, private route: ActivatedRoute, private datepipe: DatePipe) { }
+  constructor(private competitionService: CompetitionService, private route: ActivatedRoute, private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.getSelectedMatchId();
     this.competitionService.getMatch(this.selectedMatchId).subscribe(match => {
       this.selectedMatch = match.match;
-      this.formattedTime = this.datepipe.transform(this.selectedMatch.utcDate, 'yyyy.MM.dd HH:mm')
-      if (this.selectedMatch.status == this.scheduled && this.selectedMatch.utcDate != null) {
+      console.log(this.selectedMatch)
+      this.formattedTime = this.datePipe.transform(this.selectedMatch.utcDate, 'yyyy.MM.dd HH:mm')
+      if (this.selectedMatch.status == MatchStatus.scheduled && this.selectedMatch.utcDate != null) {
         this.countDown(this.formattedTime, 'daySlot', 'hourSlot', 'minuteSlot', 'secondSlot');
       }
     });
@@ -41,7 +39,7 @@ export class MatchPageComponent implements OnInit, OnDestroy {
     })
   }
 
-  countDown(dateTime, htmlDay, htmlHour, htmlMinutes, htmlSeconds) {
+  countDown(dateTime: string, htmlDay: string, htmlHours: string, htmlMinutes: string, htmlSeconds: string) {
     let end: Date = new Date(dateTime);
     let second = 1000;
     let minute = second * 60;
@@ -49,42 +47,31 @@ export class MatchPageComponent implements OnInit, OnDestroy {
     let day = hour * 24;
 
     function showRemaining() {
-      let now: Date = new Date();
+      const now: Date = new Date();
       let distance = end.getTime() - now.getTime();
-      let days = Math.floor(distance / day);
-      let hours = Math.floor((distance % day) / hour);
-      let minutes = Math.floor((distance % hour) / minute);
-      let seconds = Math.floor((distance % minute) / second);
-      let preDigit = '0';
+      const days = Math.floor(distance / day);
+      const hours = Math.floor((distance % day) / hour).toString();
+      const minutes = Math.floor((distance % hour) / minute).toString();
+      const seconds = Math.floor((distance % minute) / second).toString();
 
-      if (htmlDay != null && htmlHour != null && htmlMinutes != null && htmlSeconds != null) {
-        document.getElementById(htmlDay).innerHTML = days.toString();
-
-        if (hours.toString().length < 2) {
-          document.getElementById(htmlHour).innerHTML = preDigit + hours.toString();
-        } else {
-          document.getElementById(htmlHour).innerHTML = hours.toString();
-        }
-
-        if (minutes.toString().length < 2) {
-          document.getElementById(htmlMinutes).innerHTML = preDigit + minutes.toString();
-        } else {
-          document.getElementById(htmlMinutes).innerHTML = minutes.toString();
-        }
-
-        if (seconds.toString().length < 2) {
-          document.getElementById(htmlSeconds).innerHTML = preDigit + seconds.toString();
-        } else {
-          document.getElementById(htmlSeconds).innerHTML = seconds.toString();
-        }
-      }
+      document.getElementById(htmlDay).innerHTML = days.toString();
+      MatchPageComponent.addToHTML(hours, htmlHours);
+      MatchPageComponent.addToHTML(minutes, htmlMinutes);
+      MatchPageComponent.addToHTML(seconds, htmlSeconds);
     }
-    this.timer = setInterval(showRemaining, 1000);
+    this.timer = window.setInterval(showRemaining, 1000);
+  }
 
+  static addToHTML(inputNumber: string, targetElementId: string) {
+    if (inputNumber.length < 2) {
+      document.getElementById(targetElementId).innerHTML = 0 + inputNumber.toString();
+    } else {
+      document.getElementById(targetElementId).innerHTML = inputNumber.toString();
+    }
   }
 
   ngOnDestroy(): void {
-    clearInterval(this.timer);
+    window.clearInterval(this.timer);
   }
 }
 

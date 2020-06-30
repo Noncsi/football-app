@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { Match } from 'src/app/models/match';
 
 @Component({
   selector: 'app-match-in-container',

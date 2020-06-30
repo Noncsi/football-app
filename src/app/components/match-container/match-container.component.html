@@ -1,12 +1,12 @@
 <div class="match-container">{{title}}
-    <div *ngIf="matchList?.length != 0">
+    <div *ngIf="matchList?.length !== 0">
         <div class="match-list">
             <div *ngFor="let match of matchList">
                 <app-match-in-container [match]="match"></app-match-in-container>
             </div>
         </div>
     </div>
-    <div *ngIf="matchList?.length == 0">
-        <h5>There are no data to show.</h5>
+    <div *ngIf="matchList?.length === 0">
+        <h5>There is no data to show.</h5>
     </div>
 </div>

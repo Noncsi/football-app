@@ -1,10 +1,4 @@
-class CompetitonList {
-    count: number;
-    filter: string;
-    competitions: Competition[];
-}
-
-class Competition {
+export class Competition {
     id: number;
     name: string;   
 }

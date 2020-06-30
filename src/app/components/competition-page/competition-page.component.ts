@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 
 import { CompetitionService } from 'src/app/services/competition.service';
+import { Match } from 'src/app/models/match';
+import { Competition } from 'src/app/models/competition';
+import { MatchStatus } from 'src/app/models/MatchStatus';
 
 @Component({
   selector: 'app-competition-page',
@@ -14,6 +17,8 @@ export class CompetitionPageComponent implements OnInit {
   scheduledMatches: Match[];
   selectedCompetition: Competition;
 
+  MatchStatus = MatchStatus;
+
   constructor(private competitionService: CompetitionService, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -21,20 +26,21 @@ export class CompetitionPageComponent implements OnInit {
       this.getSelectedCompetitionId(comps);
       this.getMatches(this.selectedCompetition)
     });
+
   }
 
   getMatches(selectedCompetition: Competition) {
-    this.competitionService.getMatches(selectedCompetition.id, matchStatus.live).subscribe((matchesFromApi) => {
-      this.liveMatches = matchesFromApi['matches'];
+    this.competitionService.getMatches(selectedCompetition.id, MatchStatus.live).subscribe((matchParent) => {
+      this.liveMatches = matchParent.matches;
     })
-    this.competitionService.getMatches(selectedCompetition.id, matchStatus.scheduled).subscribe((matchesFromApi) => {
-      this.scheduledMatches = matchesFromApi['matches'];
+    this.competitionService.getMatches(selectedCompetition.id, MatchStatus.scheduled).subscribe((matchParent) => {
+      this.scheduledMatches = matchParent.matches;
     })
   }
 
-  getSelectedCompetitionId(comps: Competition[]) {
+  getSelectedCompetitionId(competitions: Competition[]) {
     this.route.paramMap.subscribe(params => {
-      this.selectedCompetition = comps.filter(c => c.name == params.get("name"))[0];
+      this.selectedCompetition = competitions.filter(c => c.name == params.get("name"))[0];
     })
   }
 }

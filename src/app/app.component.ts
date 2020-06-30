@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { CompetitionService } from './services/competition.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
