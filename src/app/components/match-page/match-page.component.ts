@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe, Time } from '@angular/common';
 
@@ -10,7 +10,7 @@ import { prepareSyntheticListenerFunctionName } from '@angular/compiler/src/rend
   templateUrl: './match-page.component.html',
   styleUrls: ['./match-page.component.scss']
 })
-export class MatchPageComponent implements OnInit {
+export class MatchPageComponent implements OnInit, OnDestroy {
 
   selectedMatch: Match;
   selectedMatchId: number;
@@ -20,18 +20,18 @@ export class MatchPageComponent implements OnInit {
   get paused() { return matchStatus.paused; }
   get scheduled() { return matchStatus.scheduled; }
 
+  timer;
+
   constructor(private competitionService: CompetitionService, private route: ActivatedRoute, private datepipe: DatePipe) { }
 
   ngOnInit() {
     this.getSelectedMatchId();
     this.competitionService.getMatch(this.selectedMatchId).subscribe(match => {
       this.selectedMatch = match.match;
-      console.log(this.selectedMatch)
       this.formattedTime = this.datepipe.transform(this.selectedMatch.utcDate, 'yyyy.MM.dd HH:mm')
-      if (this.selectedMatch.status == this.scheduled){
+      if (this.selectedMatch.status == this.scheduled && this.selectedMatch.utcDate != null) {
         this.countDown(this.formattedTime, 'daySlot', 'hourSlot', 'minuteSlot', 'secondSlot');
       }
-
     });
   }
 
@@ -47,7 +47,6 @@ export class MatchPageComponent implements OnInit {
     let minute = second * 60;
     let hour = minute * 60;
     let day = hour * 24;
-    let timer;
 
     function showRemaining() {
       let now: Date = new Date();
@@ -57,27 +56,35 @@ export class MatchPageComponent implements OnInit {
       let minutes = Math.floor((distance % hour) / minute);
       let seconds = Math.floor((distance % minute) / second);
       let preDigit = '0';
-      
-      document.getElementById(htmlDay).innerHTML = days.toString();
 
-      if(hours.toString().length < 2) {
-        document.getElementById(htmlHour).innerHTML = preDigit + hours.toString();
-      } else {
-        document.getElementById(htmlHour).innerHTML = hours.toString();
-      }
+      if (htmlDay != null && htmlHour != null && htmlMinutes != null && htmlSeconds != null) {
+        document.getElementById(htmlDay).innerHTML = days.toString();
 
-      if(minutes.toString().length < 2) {
-        document.getElementById(htmlMinutes).innerHTML = preDigit + minutes.toString();
-      } else {
-        document.getElementById(htmlMinutes).innerHTML = minutes.toString();
-      }
+        if (hours.toString().length < 2) {
+          document.getElementById(htmlHour).innerHTML = preDigit + hours.toString();
+        } else {
+          document.getElementById(htmlHour).innerHTML = hours.toString();
+        }
 
-      if(seconds.toString().length < 2) {
-        document.getElementById(htmlSeconds).innerHTML = preDigit + seconds.toString();
-      } else {
-        document.getElementById(htmlSeconds).innerHTML = seconds.toString();
+        if (minutes.toString().length < 2) {
+          document.getElementById(htmlMinutes).innerHTML = preDigit + minutes.toString();
+        } else {
+          document.getElementById(htmlMinutes).innerHTML = minutes.toString();
+        }
+
+        if (seconds.toString().length < 2) {
+          document.getElementById(htmlSeconds).innerHTML = preDigit + seconds.toString();
+        } else {
+          document.getElementById(htmlSeconds).innerHTML = seconds.toString();
+        }
       }
     }
-    timer = setInterval(showRemaining, 1000);
+    this.timer = setInterval(showRemaining, 1000);
+
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.timer);
   }
 }
+

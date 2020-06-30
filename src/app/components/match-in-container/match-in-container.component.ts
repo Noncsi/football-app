@@ -16,5 +16,4 @@ export class MatchInContainerComponent implements OnInit {
   ngOnInit() {
     this.formattedTime = this.datepipe.transform(this.match.utcDate, 'yyyy.MM.dd HH:mm')
   }
-
 }
