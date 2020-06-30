@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, ReplaySubject } from 'rxjs';
 
-import { Match } from '../models/match';
 import { Competition } from '../models/competition';
 import { CompetitionParent } from '../models/competitionParent';
-import { MatchStatus } from '../models/MatchStatus';
+import { MatchStatus } from '../models/matchStatus';
 import { MatchParent } from '../models/matchParent';
 import { MatchAndHead2Head } from '../models/matchAndHead2Head';
 

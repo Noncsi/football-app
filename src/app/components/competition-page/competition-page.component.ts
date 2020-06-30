@@ -4,7 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { CompetitionService } from 'src/app/services/competition.service';
 import { Match } from 'src/app/models/match';
 import { Competition } from 'src/app/models/competition';
-import { MatchStatus } from 'src/app/models/MatchStatus';
+import { MatchStatus } from 'src/app/models/matchStatus';
 
 @Component({
   selector: 'app-competition-page',

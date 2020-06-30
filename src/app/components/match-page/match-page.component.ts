@@ -4,7 +4,7 @@ import { DatePipe } from '@angular/common';
 
 import { CompetitionService } from 'src/app/services/competition.service';
 import { Match } from 'src/app/models/match';
-import { MatchStatus } from 'src/app/models/MatchStatus';
+import { MatchStatus } from 'src/app/models/matchStatus';
 
 @Component({
   selector: 'app-match-page',
