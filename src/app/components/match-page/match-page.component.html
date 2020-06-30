@@ -1,30 +1,54 @@
 <div *ngIf="selectedMatch" class="match-details-container">
 
-    <div class="head">
-        <h2>{{selectedMatch.homeTeam.name}} VS
-            {{selectedMatch.awayTeam.name}}</h2>
-        <div *ngIf="selectedMatch.status == inPlay ||
-            selectedMatch.status == paused">
-            <h2>{{selectedMatch.score.fullTime.homeTeam}}
-                - {{selectedMatch.score.fullTime.awayTeam}}</h2>
+    <div *ngIf="selectedMatch.status == inPlay || selectedMatch.status ==
+        paused">
+        <div class="head">
+            <h2 class="live">{{selectedMatch.status}}</h2>
+            <h2>{{formattedTime}}</h2>
+
+        </div>
+
+        <h1 class="teams">{{selectedMatch.homeTeam.name}} - 
+            {{selectedMatch.awayTeam.name}}</h1>
+        <h3>{{selectedMatch.score.fullTime.homeTeam}}
+            - {{selectedMatch.score.fullTime.awayTeam}}</h3>
+
+        <div class="center">
+            <div>
+                <h3>match clock:</h3> <h3></h3>
+                <h3>first or second half:</h3> <h3></h3>
+            </div>
         </div>
     </div>
 
-
-
-    <div class="center">
-        <div>
-            <h3>competition:</h3> <h2>
-                {{selectedMatch.competition.name}}</h2>
-            <h3>date:</h3> <h2>{{formattedTime}}</h2>
-            <h3>status:</h3> <h2>{{selectedMatch.status}}</h2>
+    <div *ngIf="selectedMatch.status == scheduled">
+        <div class="head">
+            <h2 class="scheduled">{{selectedMatch.status}}</h2>
+            <h3>{{formattedTime}} - {{selectedMatch.venue}}</h3>
         </div>
-        <div *ngIf="selectedMatch.status == inPlay ||
-            selectedMatch.status == paused">
-            <h3>match clock:</h3> <h2></h2>
-            <h3>first or second half:</h3> <h2></h2>
-
+        <h3 class="counterTitle">Starts in</h3>
+        <div class="counter">
+            <div>
+                <h3 id="daySlot" class="countDownNumber"></h3>
+                <h3 class="type">Days</h3>
+            </div>
+            <h3 class="colon">:</h3>
+            <div >
+                <h3 id="hourSlot" class="countDownNumber"></h3>
+                <h3 class="type">Hours</h3>
+            </div>
+            <h3 class="colon">:</h3>
+            <div >
+                <h3 id="minuteSlot" class="countDownNumber"></h3>
+                <h3 class="type">Minutes</h3>
+            </div>
+            <h3 class="colon">:</h3>
+            <div >
+                <h3 id="secondSlot" class="countDownNumber"></h3>
+                <h3 class="type">Seconds</h3>
+            </div>
         </div>
+        <h1 class="teams">{{selectedMatch.homeTeam.name}} -
+            {{selectedMatch.awayTeam.name}}</h1>
     </div>
-
 </div>

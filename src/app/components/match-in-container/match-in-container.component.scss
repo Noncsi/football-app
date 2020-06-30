@@ -2,7 +2,8 @@
     display: flex;
     margin-bottom: 10px;
     padding-top: 10px;
-    background-color: rgba(255,255,255,0.5);
+    border-top: solid;
+    border-color: rgb(226, 226, 226);
 }
 
 h5 {
@@ -11,10 +12,6 @@ h5 {
 
 a {
     text-decoration: none;
-}
-
-.team {
-
 }
 
 .teams {

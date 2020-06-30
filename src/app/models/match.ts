@@ -10,6 +10,7 @@ class Match {
     homeTeam: HomeTeam;
     awayTeam: AwayTeam;
     competition: Competition;
+    venue: string;
 }
 
 const enum matchStatus {
@@ -29,9 +30,11 @@ class TeamScore {
 }
 
 class HomeTeam {
-    name: string
+    name: string;
+    captain: string
 }
 
 class AwayTeam {
-    name: string
+    name: string;
+    captain: string;
 }

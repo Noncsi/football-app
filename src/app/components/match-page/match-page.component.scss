@@ -1,10 +1,9 @@
 .match-details-container {
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255);
     width: 80vw;
     margin-left: auto;
     margin-right: auto;
     padding: 2%;
-
 }
 
 .center {
@@ -12,14 +11,64 @@
     flex-direction: row;
 }
 
-.head {
-    text-align: center;
-}
-
-h3 {
-
+h1 {
+    padding: 5px;
+    font-weight: 100;
 }
 
 h2 {
+    border: solid;
+    margin: 0;
+    font-size: 120%;
+    padding: 5px;
+}
 
+h2.scheduled {
+    color: #3567d6
+}
+
+h2.live {
+    color: #1aba25
+}
+
+h3 {
+    padding: 8px;
+    font-size: 120%;
+    margin: 0;
+    font-weight: 100;
+}
+
+.head {
+    text-align: center;
+    display: flex;
+}
+
+.teams {
+    flex-grow: 1;
+    padding: 5px;
+    text-align: center;
+    letter-spacing: -2px;
+}
+
+.counterTitle {
+    text-align: center;
+    font-weight: bold;
+}
+
+.counter {
+    display:flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.countDownNumber {
+    font-size: 300%
+}
+
+.colon {
+    font-size: 250%;
+}
+
+.type {
+    padding: 0;
 }
